@@ -4,7 +4,7 @@ function takeOrderSchema(Joi) {
       id: Joi.string().trim().required()
     },
     body: {
-      data: Joi.date().required()
+      date: Joi.date().required()
     }
   });
 }
@@ -12,8 +12,7 @@ function takeOrderSchema(Joi) {
 function giveOrderSchema(Joi) {
   return Joi.object().keys({
     params: {
-      idBook: Joi.string().trim().required(),
-      idOrder: Joi.string().trim().required()
+      id: Joi.string().trim().required(),
     }
   });
 }

@@ -114,13 +114,13 @@ async function getAuthors(req, res, next) {
 }
 
 /**
- * GET /api/catalog/authors/:id
+ * GET /api/catalog/authors/:pseudonym
  * */
 async function getAuthor(req, res, next) {
   try {
-    const { id } = req.params;
+    const { pseudonym } = req.params;
 
-    const author = await Author.findById(id).populate('books');
+    const author = await Author.findOne({ pseudonym }).populate('books');
 
     if (!author) {
       return res

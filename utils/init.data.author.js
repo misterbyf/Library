@@ -5,8 +5,8 @@ import Author from '../models/Author';
 function createAuthorObject(data = {}) {
   const author = {
     name: data.name || faker.name.firstName(),
-    pseudonym: data.email || faker.internet.userName(),
-    hometown: data.password || faker.address.city(),
+    pseudonym: data.pseudonym || faker.lorem.word(),
+    hometown: data.hometown || faker.address.city(),
   };
 
   return author;

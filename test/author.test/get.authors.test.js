@@ -37,7 +37,7 @@ describe('GET api/catalog/authors', function () {
       .send()
       .expect(httpStatus.OK);
 
-    expect(res.body).to.be.an('array').to.have.lengthOf(1);
+    expect(res.body).to.be.an('array');
     expect(res.body[0]).has.own.property('name').eq(defaultAuthor.name);
     expect(res.body[0]).has.own.property('pseudonym').eq(defaultAuthor.pseudonym);
     expect(res.body[0]).has.own.property('hometown').eq(defaultAuthor.hometown);

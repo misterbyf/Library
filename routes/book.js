@@ -14,9 +14,13 @@ import {
 
 const router = express.Router();
 
+router.route('/authors/:id/books')
+  .post(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(createBookSchema), createBook);
+
+router.route('/authors/:idAuthor/books/:idBook')
+  .put(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(updateBookSchema), updateBook);
+
 router.route('/books/:id')
-  .post(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(createBookSchema), createBook)
-  .put(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(updateBookSchema), updateBook)
   .delete(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(removeBookSchema), removeBook);
 
 router.route('/books')

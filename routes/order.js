@@ -12,7 +12,7 @@ const router = express.Router();
 router.route('/order/:id')
   .post(middlewarePassportJwt, middlewareACL('admin', 'user'), middlewareValidator(takeOrderSchema), takeBook);
 
-router.route('/order/:idOrder/:idBook')
+router.route('/order/:id')
   .delete(middlewarePassportJwt, middlewareACL('admin', 'user'), middlewareValidator(giveOrderSchema), giveBook);
 
 export default router;

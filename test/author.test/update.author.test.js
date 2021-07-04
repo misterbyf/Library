@@ -5,7 +5,6 @@ import {
 } from 'mocha';
 import { expect } from 'chai/index';
 import httpStatus from 'http-status-codes';
-import mongoose from 'mongoose';
 
 import clearCollections from '../../utils/clear.collections';
 import { createAuthorObject, createDefaultAuthor } from '../../utils/init.data.author';
@@ -15,9 +14,7 @@ let agent;
 
 let authorObj;
 
-let defaultAuthor;
-
-describe('POST api/catalog/authors/:id', function () {
+describe('POST api/catalog/authors', function () {
   before(async () => {
     await clearCollections();
 
@@ -29,25 +26,23 @@ describe('POST api/catalog/authors/:id', function () {
 
     authorObj = createAuthorObject();
 
-    defaultAuthor = await createDefaultAuthor(authorObj);
+    await createDefaultAuthor(authorObj);
   });
 
-  it('should return status NOT_FOUND, because author with same id not found.', async () => {
-    const id = mongoose.Types.ObjectId();
-
+  it('should return status BAD REQUEST, because author with same pseudonym already exist.', async () => {
     await agent
-      .post(`/api/catalog/authors/${id}`)
+      .post('/api/catalog/authors')
       .send(authorObj)
-      .expect(httpStatus.NOT_FOUND);
+      .expect(httpStatus.BAD_REQUEST);
   });
 
-  it('should return status OK, and reload author object.', async () => {
+  it('should return status CREATED, and author object.', async () => {
     const author = createAuthorObject();
 
     const res = await agent
-      .post(`/api/catalog/authors/${defaultAuthor._id}`)
+      .post('/api/catalog/authors')
       .send(author)
-      .expect(httpStatus.OK);
+      .expect(httpStatus.CREATED);
 
     expect(res.body).to.be.an('object');
     expect(res.body).has.own.property('name').eq(author.name);

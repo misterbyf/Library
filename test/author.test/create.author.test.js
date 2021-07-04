@@ -30,13 +30,13 @@ describe('POST api/catalog/authors', function () {
   });
 
   it('should return status BAD REQUEST, because author with same pseudonym already exist.', async () => {
-    const result = await agent
+    await agent
       .post('/api/catalog/authors')
       .send(authorObj)
       .expect(httpStatus.BAD_REQUEST);
   });
 
-  it('should return status CREATED, and author object', async () => {
+  it('should return status CREATED, and author object.', async () => {
     const author = createAuthorObject();
 
     const res = await agent

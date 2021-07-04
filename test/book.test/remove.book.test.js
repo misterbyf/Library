@@ -7,19 +7,24 @@ import { expect } from 'chai/index';
 import httpStatus from 'http-status-codes';
 import mongoose from 'mongoose';
 
+import Book from '../../models/Book';
+
 import clearCollections from '../../utils/clear.collections';
 import { createAuthorObject, createDefaultAuthor } from '../../utils/init.data.author';
+import { createDefaultBook, createBookObject } from '../../utils/init.data.books';
 import { createDefaultUser, createUserObject, loginUserAgent } from '../../utils/init.data.user';
-
-import Author from '../../models/Author';
 
 let agent;
 
 let authorObj;
 
+let bookObj;
+
 let defaultAuthor;
 
-describe('DELETE api/catalog/authors/:id', function () {
+let defaultBook;
+
+describe('DELETE /api/catalog/books/:id', function () {
   before(async () => {
     await clearCollections();
 
@@ -32,25 +37,29 @@ describe('DELETE api/catalog/authors/:id', function () {
     authorObj = createAuthorObject();
 
     defaultAuthor = await createDefaultAuthor(authorObj);
+
+    bookObj = createBookObject({ author: defaultAuthor._id });
+
+    defaultBook = await createDefaultBook(bookObj)
   });
 
-  it('should return status NOT_FOUND, because author with same id not found.', async () => {
+  it('should return status NOT FOUND, because book with same id not exist.', async () => {
     const id = mongoose.Types.ObjectId();
 
     await agent
-      .delete(`/api/catalog/authors/${id}`)
-      .send(authorObj)
+      .delete(`/api/catalog/books/${id}`)
+      .send(bookObj)
       .expect(httpStatus.NOT_FOUND);
   });
 
-  it('should return status NO_CONTENT, and delete author.', async () => {
+  it('should return status NOT FOUND, because book with same id not exist.', async () => {
     await agent
-      .delete(`/api/catalog/authors/${defaultAuthor._id}`)
-      .send()
+      .delete(`/api/catalog/books/${defaultBook._id}`)
+      .send(bookObj)
       .expect(httpStatus.NO_CONTENT);
 
-    const reloadAuthor = await Author.findOne(defaultAuthor._id);
+    const reloadBook = await Book.findById(defaultBook._id);
 
-    expect(reloadAuthor).eq(null);
+    expect(reloadBook).eq(null);
   });
 });

@@ -30,9 +30,9 @@ async function takeBook(req, res, next) {
       dueBack: date
     });
 
-    await order.save();
-
     await Book.updateOne({ _id: id }, { $inc: { quantity: -1 } });
+
+    await order.save();
 
     return res
       .status(httpStatus.CREATED)
@@ -47,19 +47,9 @@ async function takeBook(req, res, next) {
  * */
 async function giveBook(req, res, next) {
   try {
-    const { idBook, idOrder } = req.params;
+    const { id } = req.params;
 
-    const book = Book.findById(idBook);
-
-    if (!book) {
-      return res
-        .status(httpStatus.NOT_FOUND)
-        .json({
-          message: 'Book with same id not found.'
-        })
-    }
-
-    const order = Order.findById(idOrder);
+    const order = await Order.findById(id);
 
     if (!order) {
       return res
@@ -69,9 +59,9 @@ async function giveBook(req, res, next) {
         })
     }
 
-    await order.remove();
+    await Book.updateOne({ _id: order.book }, { $inc: { quantity: 1 } });
 
-    await Book.updateOne({ _id: idBook }, { $inc: { quantity: 1 } });
+    await order.remove();
 
     return res
       .status(httpStatus.NO_CONTENT)

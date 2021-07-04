@@ -32,7 +32,7 @@ function removeAuthorSchema(Joi) {
 function getAuthorSchema(Joi) {
   return Joi.object().keys({
     params: {
-      id: Joi.string().trim().required()
+      pseudonym: Joi.string().trim().required()
     }
   });
 }

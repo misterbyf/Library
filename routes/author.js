@@ -23,7 +23,9 @@ router.route('/authors')
 
 router.route('/authors/:id')
   .post(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(updateAuthorSchema), updateAuthor)
-  .delete(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(removeAuthorSchema), removeAuthor)
+  .delete(middlewarePassportJwt, middlewareACL('admin'), middlewareValidator(removeAuthorSchema), removeAuthor);
+
+router.route('/authors/author/:pseudonym')
   .get(middlewarePassportJwt, middlewareACL('admin', 'user'), middlewareValidator(getAuthorSchema), getAuthor);
 
 export default router;

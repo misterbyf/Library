@@ -4,7 +4,7 @@ import Book from '../models/Book';
 import Author from '../models/Author';
 
 /**
- * POST /api/catalog/books/:id
+ * POST /api/authors/:id/books
  * */
 async function createBook(req, res, next) {
   try {
@@ -34,7 +34,7 @@ async function createBook(req, res, next) {
 
     const book = new Book({
       title,
-      author,
+      id,
       publishedDate,
       pages,
       language,
@@ -73,7 +73,7 @@ async function updateBook(req, res, next) {
 
     const book = await Book.findById(idBook);
 
-    if (book) {
+    if (!book) {
       return res
         .status(httpStatus.NOT_FOUND)
         .json({
@@ -83,7 +83,7 @@ async function updateBook(req, res, next) {
 
     Object.assign(book, {
       title,
-      author,
+      idAuthor,
       publishedDate,
       pages,
       language,
@@ -111,7 +111,7 @@ async function removeBook(req, res, next) {
   try {
     const { id } = req.params;
 
-    const book = await BOOK.findById(id);
+    const book = await Book.findById(id);
 
     if (!book) {
       return res
@@ -148,14 +148,6 @@ async function getBooks(req, res, next) {
     }
 
     const books = await Book.find(query);
-
-    if (!books) {
-      return res
-        .status(httpStatus.NOT_FOUND)
-        .json({
-          message: 'Books not found.'
-        })
-    }
 
     return res
       .json(books);
