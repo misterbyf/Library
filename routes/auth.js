@@ -14,17 +14,18 @@ import {
 
 const router = express.Router();
 
-router.post('/login', middlewareValidator(loginSchema), login);
+router.route('/login')
+    .post(middlewareValidator(loginSchema), login);
 
-router.post('/register', middlewareValidator(registerSchema), register);
+router.route('/register')
+    .post(middlewareValidator(registerSchema), register);
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.route('/google')
+    .get(passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/api/auth/login' }),
-  googleAuthorization
-);
+router.route('/google/callback')
+    .get(passport.authenticate('google', { failureRedirect: '/api/auth/login' }),
+        googleAuthorization);
 
 router.get('/logout', middlewarePassportJwt, logout);
 

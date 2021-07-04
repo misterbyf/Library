@@ -22,7 +22,12 @@ authorSchema.virtual('books', {
   foreignField: 'author'
 });
 
-authorSchema.set('toObject', { virtuals: true });
-authorSchema.set('toJSON', { virtuals: true });
+authorSchema.set('toObject', {
+  virtuals: true
+});
+
+authorSchema.set('toJSON', {
+  virtuals: true
+});
 
 export default mongoose.model('Author', authorSchema);

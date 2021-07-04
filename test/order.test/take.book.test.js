@@ -14,7 +14,6 @@ import clearCollections from '../../utils/clear.collections';
 import { createAuthorObject, createDefaultAuthor } from '../../utils/init.data.author';
 import { createDefaultBook, createBookObject } from '../../utils/init.data.books';
 import { createDefaultUser, createUserObject, loginUserAgent } from '../../utils/init.data.user';
-import { createOrderObject, createDefaultOrder } from '../../utils/init.data.order';
 
 let agent;
 
@@ -32,7 +31,7 @@ describe('POST /api/catalog/order/:id', function () {
 
     const userObj = createUserObject({role: 'admin'});
 
-    const defaultUser = await createDefaultUser(userObj);
+    await createDefaultUser(userObj);
 
     agent = await loginUserAgent(userObj);
 

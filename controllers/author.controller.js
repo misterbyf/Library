@@ -54,7 +54,11 @@ async function updateAuthor(req, res, next) {
         });
     }
 
-    Object.assign(author, { name, pseudonym, hometown });
+    Object.assign(author, {
+      name,
+      pseudonym,
+      hometown
+    });
 
     await Author.updateOne({ _id: id }, {
       $set: author

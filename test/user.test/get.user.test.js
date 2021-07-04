@@ -5,10 +5,6 @@ import {
 } from 'mocha';
 import { expect } from 'chai/index';
 import httpStatus from 'http-status-codes';
-import mongoose from 'mongoose';
-import faker from 'faker';
-
-import Book from '../../models/Book';
 
 import clearCollections from '../../utils/clear.collections';
 import { createAuthorObject, createDefaultAuthor } from '../../utils/init.data.author';
@@ -22,13 +18,13 @@ let authorObj;
 
 let bookObj;
 
+let orderObj;
+
 let defaultUser;
 
 let defaultAuthor;
 
 let defaultBook;
-
-let orderObj;
 
 let defaultOrder;
 

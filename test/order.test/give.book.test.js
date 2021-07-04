@@ -22,11 +22,11 @@ let authorObj;
 
 let bookObj;
 
+let orderObj;
+
 let defaultAuthor;
 
 let defaultBook;
-
-let orderObj;
 
 let defaultOrder;
 

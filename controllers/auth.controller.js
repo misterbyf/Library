@@ -1,9 +1,10 @@
 import bCrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import httpStatus from 'http-status-codes';
-import redisClient from '../utils/init.redis';
 
 import User from '../models/User';
+
+import redisClient from '../utils/init.redis';
 
 const SECRET_KEY = process.env.JWT;
 

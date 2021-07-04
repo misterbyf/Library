@@ -2,7 +2,9 @@ import asyncRedis from 'async-redis';
 
 const redisClient = asyncRedis.createClient({
   port: process.env.REDIS_PORT,
-  host: process.env.REDIS_HOST
+  host: process.env.REDIS_HOST,
+  username: "py",
+  password: "py"
 });
 
 redisClient.on('connect', () => {
