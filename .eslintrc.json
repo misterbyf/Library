@@ -1,0 +1,38 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "airbnb-base/legacy",
+    "plugin:mocha/recommended"
+  ],
+  "plugins": [
+    "mocha"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-underscore-dangle": "off",
+    "linebreak-style": 0,
+    "no-console": "off",
+    "no-trailing-spaces": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        "message": "Unexpected property on console object was called"
+      }
+    ],
+    "mocha/no-skipped-tests": "error",
+    "mocha/no-exclusive-tests": "error"
+  },
+  "settings": {
+    "mocha/additionalCustomNames": [
+      { "name": "describeModule", "type": "suite", "interfaces": [ "BDD" ] },
+      { "name": "testModule", "type": "testCase", "interfaces": [ "TDD" ] }
+    ]
+  }
+}
