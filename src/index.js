@@ -55,12 +55,14 @@ async function runServer() {
   } catch (e) {
     console.log(`Server message: ${e.message}`);
 
-    mongoose.connection.close();
+    await mongoose.connection.close();
 
     process.exit(1);
   }
 }
 
-runServer();
+runServer().then((error) => {
+  console.warn(error);
+});
 
 export default app;
