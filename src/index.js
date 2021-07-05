@@ -15,7 +15,7 @@ import bookRouter from '../routes/book';
 import orderRouter from '../routes/order';
 import userRouter from '../routes/user';
 
-import { createUserObject, createDefaultUser } from '../utils/init.data.user';
+import { db } from '../utils/create.admin';
 
 const PORT = process.env.PORT || 8080;
 const URL = process.env.URL;
@@ -48,12 +48,6 @@ async function runServer() {
       useUnifiedTopology: true,
       useCreateIndex: true
     });
-
-    const admin = createUserObject({
-      role: 'admin'
-    });
-
-    await createDefaultUser(admin);
 
     app.listen(PORT, () => {
       console.log(`Server has been started on port: ${PORT}`);
