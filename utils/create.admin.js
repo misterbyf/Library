@@ -18,6 +18,4 @@ db.once('open', async () => {
   }
 });
 
-export {
-  db
-}
+export default db;

@@ -15,7 +15,7 @@ import bookRouter from '../routes/book';
 import orderRouter from '../routes/order';
 import userRouter from '../routes/user';
 
-import { db } from '../utils/create.admin';
+import db from '../utils/create.admin';
 
 const PORT = process.env.PORT || 8080;
 const URL = process.env.URL;
@@ -61,7 +61,7 @@ async function runServer() {
   }
 }
 
-runServer().then((error) => {
+runServer().catch((error) => {
   console.warn(error);
 });
 
